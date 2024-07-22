@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #4a90e2;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #357abd;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f0ff;
+            border: 1px solid #cce5ff;
+            border-radius: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Prediction</h1>
+        <form id="prediction-form">
+            <div class="form-group">
+                <textarea id="text" rows="6" placeholder="Enter text here..." required></textarea>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        <h2>Prediction Result</h2>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = document.getElementById('text').value;
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text }),
+            });
+
+            const data = await response.json();
+            const label = data.label === 1 ? 'Poisonous' : 'Non-poisonous';
+            document.getElementById('result').textContent = `The text is classified as: ${label}`;
+        });
+    </script>
+</body>
+</html>
