@@ -1,1 +1,1 @@
-# Detection-of-Anxiety-and-Depression
+# Mental Health
