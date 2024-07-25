@@ -63,7 +63,7 @@ def predict():
         text_vectorized = vectorizer.transform([text_processed])
 
         # Make prediction
-        prediction_prob = model.predict_proba(text_vectorized)[0, 1]  #
+        prediction_prob = model.predict_proba(text_vectorized)[0, 1]  
         threshold = 0.3  
         label = int(prediction_prob > threshold)
 
